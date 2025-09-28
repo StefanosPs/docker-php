@@ -36,3 +36,22 @@ logs: ## Show live logs
 
 bash: ## Connect to the server container
 	@$(PHP_CONT) bash
+
+## —— Initialize Dev Environment ————————————————————————————————————————————————
+
+dev-init: ## setup application
+	$(SYMFONY) doctrine:database:drop --force
+	$(SYMFONY) doctrine:database:create
+	$(SYMFONY) doctrine:migrations:migrate -q
+	$(SYMFONY) app:download-company-symbol
+
+
+## —— Tools  ————————————————————————————————————————————————————————————————————
+#tools/cs-check:  ## run cs fixer check (PHP Coding Standards Fixer)
+#	$(PHP_CS_FIXER_CMD)
+#
+#tools/cs-fix:  ## run cs fixer (PHP Coding Standards Fixer)
+#	$(COMPOSER) run cs:fix
+#
+#tools/stan:  ## run cs fixer (PHP Coding Standards Fixer)
+#	$(COMPOSER) run stan
